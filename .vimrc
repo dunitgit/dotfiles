@@ -14,6 +14,7 @@ Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 call plug#end()
 
@@ -33,6 +34,12 @@ set wildmenu
 colorscheme gruvbox
 " background (light/dark)
 set background=dark
+
+" store swap files in central location
+let vimtmp = $HOME . '/.vimtmp/'
+silent! call mkdir(vimtmp, 'p', 0700)
+let &backupdir=vimtmp
+let &directory=vimtmp
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text Formatting/Layout
@@ -62,6 +69,12 @@ set incsearch
 " minimal number of screen lines to keep above and below the cursor
 set scrolloff=8
 
+" highlight whitespaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -87,23 +100,28 @@ noremap <silent><leader>cl :wincmd l<CR>:close<CR>
 
 " create ctags recursively
 command! MakeTags !ctags -R .
+command! Emacs echo 'sucks'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " NERDTree
-let NERDTreeShowHidden=0
+let NERDTreeShowHidden = 0
+let NERDTreeMinimalUI = 1
+let g:NERDTreeWinSize=40
 noremap <silent> <leader>m :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " NERDCommenter
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
 " ALE
+let g:ale_enabled = 0
 "let g:ale_linters = {
-            "\   'python': ['pylint'],
-            "\}
+"\   'python': ['pylint'],
+"\}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \}
