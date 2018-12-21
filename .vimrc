@@ -1,6 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin management
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " download plugin manager if missing
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -21,17 +22,21 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" detect file 
+" detect file
 filetype plugin on
+
 " syntax highlighting
 syntax enable
-" recursively look for files when using gf/find/etc 
+
+" recursively look for files when using gf/find/etc
 set path+=**
+
 " wild menu
 set wildmenu
-" colorscheme 
+
+" colorscheme
 colorscheme gruvbox
+
 " background (light/dark)
 set background=dark
 
@@ -47,12 +52,16 @@ let &directory=vimtmp
 
 " maximum width of an tab character
 set tabstop=4
+
 " indent size
 set shiftwidth=4
+
 " number of cols for a TAB
 set softtabstop=4
+
 " interpret tabs as spaces
 set expandtab
+
 " auto indent detection
 set autoindent
 
@@ -72,8 +81,6 @@ set scrolloff=8
 " highlight whitespaces
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
-
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
@@ -95,12 +102,21 @@ noremap <silent><leader>ch :wincmd h<CR>:close<CR>
 noremap <silent><leader>cl :wincmd l<CR>:close<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom commands
+" Custom commands / functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " create ctags recursively
 command! MakeTags !ctags -R .
-command! Emacs echo 'sucks'
+
+" diff unsaved changes
+function! s:DiffWithSaved()
+    let filetype=&ft
+    diffthis
+    vnew | r # | normal! 1Gdd
+    diffthis
+    exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configuration
@@ -122,6 +138,7 @@ let g:ale_enabled = 0
 "let g:ale_linters = {
 "\   'python': ['pylint'],
 "\}
+"
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \}
