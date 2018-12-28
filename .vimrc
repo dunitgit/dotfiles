@@ -1,6 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin management
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " download plugin manager if missing
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -22,19 +22,18 @@ call plug#end()
 " General
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" detect file 
+" detect file
 filetype plugin on
 " syntax highlighting
 syntax enable
-" recursively look for files when using gf/find/etc 
+" recursively look for files when using gf/find/etc
 set path+=**
 " wild menu
 set wildmenu
-" colorscheme 
+" colorscheme
 colorscheme gruvbox
 " background (light/dark)
 set background=dark
-
 " store swap files in central location
 let vimtmp = $HOME . '/.vimtmp/'
 silent! call mkdir(vimtmp, 'p', 0700)
@@ -62,18 +61,13 @@ set autoindent
 
 " highlight search hit
 set hlsearch
-
 " highlight hits while typing
 set incsearch
-
 " minimal number of screen lines to keep above and below the cursor
 set scrolloff=8
-
 " highlight whitespaces
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
-
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
