@@ -131,11 +131,11 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
 " ALE
-let g:ale_enabled = 0
-"let g:ale_linters = {
-"\   'python': ['pylint'],
-"\}
-"
+let g:ale_enabled = 1
+let g:ale_linters = {
+\   'python': ['pylint'],
+\}
+
 let g:ale_fixers = {
-            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \}
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\}
